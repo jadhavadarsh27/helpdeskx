@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block topbar_title %}Knowledge Base{% endblock %}
+{% block content %}
+<div class="card p-4" style="max-width:760px;">
+  {% if article.category %}<span class="pill pill-medium mb-2">{{ article.category }}</span>{% endif %}
+  <h4>{{ article.title }}</h4>
+  <div class="text-muted small mb-3">By {{ article.author|default:"HelpDeskX Team" }} · Updated {{ article.updated_at|date:"M d, Y" }} · {{ article.views }} views</div>
+  <div style="white-space:pre-wrap;">{{ article.body }}</div>
+  <a href="{% url 'knowledgebase:list' %}" class="btn btn-sm btn-outline-primary mt-4">← Back to Knowledge Base</a>
+</div>
+{% endblock %}

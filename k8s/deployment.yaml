@@ -1,0 +1,76 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: helpdeskx-web
+  labels:
+    app: helpdeskx
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: helpdeskx
+  template:
+    metadata:
+      labels:
+        app: helpdeskx
+    spec:
+      containers:
+        - name: web
+          image: helpdeskx:latest
+          ports:
+            - containerPort: 8000
+          envFrom:
+            - configMapRef:
+                name: helpdeskx-config
+            - secretRef:
+                name: helpdeskx-secrets
+          readinessProbe:
+            httpGet:
+              path: /accounts/login/
+              port: 8000
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /accounts/login/
+              port: 8000
+            initialDelaySeconds: 15
+            periodSeconds: 20
+          resources:
+            requests:
+              cpu: "150m"
+              memory: "256Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: helpdeskx-service
+spec:
+  selector:
+    app: helpdeskx
+  ports:
+    - port: 80
+      targetPort: 8000
+  type: ClusterIP
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: helpdeskx-hpa
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: helpdeskx-web
+  minReplicas: 2
+  maxReplicas: 6
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 70

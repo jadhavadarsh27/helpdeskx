@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block topbar_title %}New Ticket{% endblock %}
+{% block content %}
+<div class="card p-4" style="max-width:640px;">
+  <h5 class="section-title">Describe your issue</h5>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="mb-3">
+      <label class="form-label small">Subject</label>
+      {{ form.subject }}
+    </div>
+    <div class="mb-3">
+      <label class="form-label small">Description</label>
+      {{ form.description }}
+    </div>
+    <div class="row">
+      <div class="col-6 mb-3">
+        <label class="form-label small">Category</label>
+        {{ form.category }}
+      </div>
+      <div class="col-6 mb-3">
+        <label class="form-label small">Priority</label>
+        {{ form.priority }}
+      </div>
+    </div>
+    <div class="mb-3">
+      <label class="form-label small">Attachment (optional)</label>
+      {{ attachment_form.file }}
+    </div>
+    <button type="submit" class="btn btn-primary">Submit ticket</button>
+  </form>
+</div>
+{% endblock %}

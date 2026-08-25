@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block topbar_title %}Notifications{% endblock %}
+{% block content %}
+{% if notifications %}
+  {% for n in notifications %}
+    <a href="{% url 'notifications:go' n.pk %}" class="text-decoration-none text-reset">
+      <div class="ticket-row">
+        <div>{{ n.message }}</div>
+        <div class="text-muted small">{{ n.created_at|timesince }} ago</div>
+      </div>
+    </a>
+  {% endfor %}
+{% else %}
+  <div class="empty-state"><h5>You're all caught up</h5><p>No notifications yet.</p></div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+{% block topbar_title %}{{ ticket.ticket_number }}{% endblock %}
+{% block content %}
+<div class="row g-3">
+  <div class="col-lg-8">
+    <div class="card p-4 mb-3">
+      <div class="d-flex justify-content-between align-items-start">
+        <div>
+          <span class="mono text-muted small">{{ ticket.ticket_number }}</span>
+          <h4 class="mb-1">{{ ticket.subject }}</h4>
+          <div class="text-muted small">Opened by {{ ticket.created_by }} · {{ ticket.created_at|date:"M d, Y H:i" }}</div>
+        </div>
+        <div class="text-end">
+          <span class="pill pill-{{ ticket.priority|lower }}">{{ ticket.get_priority_display }}</span>
+          <span class="pill pill-{{ ticket.status|lower }}">{{ ticket.get_status_display }}</span>
+          {% if ticket.is_overdue %}<div class="overdue-flag mt-1">⏰ SLA OVERDUE</div>{% endif %}
+        </div>
+      </div>
+      <hr>
+      <p style="white-space:pre-wrap;">{{ ticket.description }}</p>
+
+      {% if ticket.attachments.all %}
+        <div class="mt-2">
+          <div class="small text-muted mb-1">Attachments</div>
+          {% for att in ticket.attachments.all %}
+            <a href="{{ att.file.url }}" class="d-block small" target="_blank">📎 {{ att.file.name|slice:"-40:" }}</a>
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+
+    {% if ticket.status == 'RESOLVED' and ticket.created_by_id == user.id %}
+    <div class="card p-4 mb-3" style="border-color:var(--teal);">
+      <h6 class="section-title mb-2">This ticket has been marked resolved — confirm the fix?</h6>
+      <form method="post" action="{% url 'tickets:respond' ticket.pk %}">
+        {% csrf_token %}
+        <div class="mb-3">
+          <label class="form-label small">Rate the support you received</label>
+          {{ feedback_form.rating }}
+        </div>
+        <div class="mb-3">
+          {{ feedback_form.comment }}
+        </div>
+        <button type="submit" name="action" value="accept" class="btn btn-primary btn-sm">✅ Accept &amp; Close</button>
+        <button type="submit" name="action" value="reject" class="btn btn-outline-danger btn-sm">↩️ Reject &amp; Reopen</button>
+      </form>
+    </div>
+    {% endif %}
+
+    <div class="card p-4">
+      <h6 class="section-title">Activity</h6>
+      {% for comment in comments %}
+        <div class="comment-block {% if comment.is_internal_note %}internal{% endif %}">
+          <div class="small">
+            <strong>{{ comment.author }}</strong>
+            {% if comment.is_internal_note %}<span class="pill pill-high ms-1">Internal note</span>{% endif %}
+            <span class="text-muted">· {{ comment.created_at|timesince }} ago</span>
+          </div>
+          <div style="white-space:pre-wrap;">{{ comment.body }}</div>
+        </div>
+      {% empty %}
+        <p class="text-muted small">No activity yet.</p>
+      {% endfor %}
+
+      <form method="post" class="mt-3">
+        {% csrf_token %}
+        {{ comment_form.body }}
+        {% if user.is_agent or user.is_admin_role %}
+          <div class="form-check mt-2">
+            {{ comment_form.is_internal_note }}
+            <label class="form-check-label small">Internal note (hidden from employee)</label>
+          </div>
+        {% endif %}
+        <button type="submit" name="submit_comment" value="1" class="btn btn-primary btn-sm mt-2">Add comment</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="col-lg-4">
+    {% if assign_form %}
+    <div class="card p-3 mb-3">
+      <h6 class="section-title">Manage ticket</h6>
+      <form method="post" action="{% url 'tickets:assign' ticket.pk %}">
+        {% csrf_token %}
+        <div class="mb-2">
+          <label class="form-label small">Assigned to</label>
+          {{ assign_form.assigned_to }}
+        </div>
+        <div class="mb-2">
+          <label class="form-label small">Priority</label>
+          {{ assign_form.priority }}
+        </div>
+        <div class="mb-2">
+          <label class="form-label small">Status</label>
+          {{ assign_form.status }}
+        </div>
+        <button type="submit" class="btn btn-primary btn-sm w-100">Save</button>
+      </form>
+    </div>
+    {% endif %}
+
+    <div class="card p-3 mb-3">
+      <h6 class="section-title">Details</h6>
+      <div class="small text-muted">Category</div>
+      <div class="mb-2">{{ ticket.category|default:"Uncategorized" }}</div>
+      <div class="small text-muted">SLA due</div>
+      <div class="mb-2">{{ ticket.due_at|date:"M d, Y H:i"|default:"—" }}</div>
+      <div class="small text-muted">First response</div>
+      <div class="mb-2">{{ ticket.first_response_at|date:"M d, Y H:i"|default:"Pending" }}</div>
+      {% if ticket.feedback %}
+        <div class="small text-muted">Employee rating</div>
+        <div>{{ ticket.feedback.rating }}/5 ⭐</div>
+      {% endif %}
+    </div>
+
+    <div class="card p-3">
+      <h6 class="section-title">History</h6>
+      {% for h in history %}
+        <div class="small mb-2"><span class="text-muted">{{ h.created_at|date:"M d H:i" }}</span> — {{ h.action }} {% if h.actor %}<span class="text-muted">by {{ h.actor }}</span>{% endif %}</div>
+      {% empty %}
+        <p class="text-muted small">No history yet.</p>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,72 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: helpdeskx-config
+data:
+  DJANGO_DEBUG: "False"
+  DJANGO_ALLOWED_HOSTS: "helpdeskx.example.com"
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: helpdeskx-secrets
+type: Opaque
+stringData:
+  DJANGO_SECRET_KEY: "replace-with-a-generated-secret"
+  DATABASE_URL: "postgres://helpdeskx:helpdeskx@postgres-service:5432/helpdeskx"
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: helpdeskx-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+spec:
+  rules:
+    - host: helpdeskx.example.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: helpdeskx-service
+                port:
+                  number: 80
+  tls:
+    - hosts:
+        - helpdeskx.example.com
+      secretName: helpdeskx-tls
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: helpdeskx-web-policy
+spec:
+  podSelector:
+    matchLabels:
+      app: helpdeskx
+  policyTypes:
+    - Ingress
+    - Egress
+  ingress:
+    - from:
+        - namespaceSelector: {}
+      ports:
+        - protocol: TCP
+          port: 8000
+  egress:
+    - to:
+        - podSelector:
+            matchLabels:
+              app: postgres
+      ports:
+        - protocol: TCP
+          port: 5432
+    - to:
+        - podSelector:
+            matchLabels:
+              app: redis
+      ports:
+        - protocol: TCP
+          port: 6379

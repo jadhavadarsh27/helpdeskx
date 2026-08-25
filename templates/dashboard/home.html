@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+{% block topbar_title %}Dashboard{% endblock %}
+{% block content %}
+
+<div class="row g-3 mb-4">
+  <div class="col-md-3 col-6"><div class="stat-card"><div class="stat-label">Total Tickets</div><div class="stat-value">{{ total }}</div></div></div>
+  <div class="col-md-3 col-6"><div class="stat-card"><div class="stat-label">Open (New)</div><div class="stat-value">{{ open_count }}</div></div></div>
+  <div class="col-md-3 col-6"><div class="stat-card accent-violet"><div class="stat-label">Pending</div><div class="stat-value">{{ pending_count }}</div></div></div>
+  <div class="col-md-3 col-6"><div class="stat-card accent-teal"><div class="stat-label">Resolved</div><div class="stat-value">{{ resolved_count }}</div></div></div>
+  <div class="col-md-3 col-6"><div class="stat-card"><div class="stat-label">Closed</div><div class="stat-value">{{ closed_count }}</div></div></div>
+  <div class="col-md-3 col-6"><div class="stat-card accent-amber"><div class="stat-label">High Priority Open</div><div class="stat-value">{{ high_priority_count }}</div></div></div>
+  <div class="col-md-3 col-6"><div class="stat-card accent-red"><div class="stat-label">Overdue</div><div class="stat-value">{{ overdue_count }}</div></div></div>
+  <div class="col-md-3 col-6"><div class="stat-card accent-teal"><div class="stat-label">Avg Resolution</div><div class="stat-value">{% if avg_resolution_hours %}{{ avg_resolution_hours }}h{% else %}—{% endif %}</div></div></div>
+</div>
+
+{% if user.is_admin_role %}
+<div class="row g-3 mb-4">
+  <div class="col-md-3 col-6"><div class="stat-card"><div class="stat-label">Agents</div><div class="stat-value">{{ total_agents }}</div></div></div>
+  <div class="col-md-3 col-6"><div class="stat-card"><div class="stat-label">Employees</div><div class="stat-value">{{ total_employees }}</div></div></div>
+  <div class="col-md-3 col-6"><div class="stat-card accent-red"><div class="stat-label">Unassigned</div><div class="stat-value">{{ unassigned_count }}</div></div></div>
+</div>
+{% endif %}
+
+<div class="row g-3">
+  <div class="col-lg-7">
+    <div class="card p-3 mb-3">
+      <h6 class="section-title">Recent Tickets</h6>
+      {% for ticket in recent_tickets %}
+        <a href="{% url 'tickets:detail' ticket.pk %}" class="text-decoration-none text-reset">
+          <div class="ticket-row d-flex justify-content-between align-items-center">
+            <div>
+              <span class="mono ticket-id">{{ ticket.ticket_number }}</span>
+              <span class="fw-semibold ms-2">{{ ticket.subject }}</span>
+            </div>
+            <span class="pill pill-{{ ticket.status|lower }}">{{ ticket.get_status_display }}</span>
+          </div>
+        </a>
+      {% empty %}
+        <p class="text-muted small">No tickets yet.</p>
+      {% endfor %}
+    </div>
+
+    {% if user.is_admin_role and agent_performance %}
+    <div class="card p-3">
+      <h6 class="section-title">Agent Performance</h6>
+      <table class="table table-sm">
+        <thead><tr><th>Agent</th><th>Assigned</th><th>Resolved/Closed</th></tr></thead>
+        <tbody>
+          {% for a in agent_performance %}
+          <tr>
+            <td>{{ a.assigned_to__first_name }} {{ a.assigned_to__last_name }} ({{ a.assigned_to__username }})</td>
+            <td>{{ a.assigned_count }}</td>
+            <td>{{ a.resolved_count }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% endif %}
+  </div>
+
+  <div class="col-lg-5">
+    <div class="card p-3 mb-3">
+      <h6 class="section-title">Tickets by Category</h6>
+      {% for row in tickets_by_category %}
+        <div class="d-flex justify-content-between small mb-2">
+          <span>{{ row.category__name|default:"Uncategorized" }}</span>
+          <span class="fw-semibold">{{ row.count }}</span>
+        </div>
+      {% empty %}<p class="text-muted small">No data yet.</p>{% endfor %}
+    </div>
+
+    <div class="card p-3 mb-3">
+      <h6 class="section-title">Tickets by Status</h6>
+      {% for row in tickets_by_status %}
+        <div class="d-flex justify-content-between small mb-2">
+          <span>{{ row.status }}</span>
+          <span class="fw-semibold">{{ row.count }}</span>
+        </div>
+      {% empty %}<p class="text-muted small">No data yet.</p>{% endfor %}
+    </div>
+
+    {% if user.is_admin_role and tickets_by_department %}
+    <div class="card p-3">
+      <h6 class="section-title">Tickets by Department</h6>
+      {% for row in tickets_by_department %}
+        <div class="d-flex justify-content-between small mb-2">
+          <span>{{ row.created_by__department|default:"Unspecified" }}</span>
+          <span class="fw-semibold">{{ row.count }}</span>
+        </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Create account — HelpDeskX{% endblock %}
+{% block auth_content %}
+<div style="min-height:100vh; display:flex; align-items:center; justify-content:center; background:var(--bg); padding: 30px 0;">
+  <div class="card p-4" style="width:440px;">
+    <div class="brand" style="color:var(--primary); font-weight:700; font-size:22px; margin-bottom:2px;">
+      <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--teal);"></span> HelpDeskX
+    </div>
+    <p class="text-muted small mb-4">Create your account</p>
+    <form method="post">
+      {% csrf_token %}
+      <div class="row">
+        <div class="col-6 mb-3"><label class="form-label small">First name</label>{{ form.first_name }}</div>
+        <div class="col-6 mb-3"><label class="form-label small">Last name</label>{{ form.last_name }}</div>
+      </div>
+      <div class="mb-3"><label class="form-label small">Username</label>{{ form.username }}</div>
+      <div class="mb-3"><label class="form-label small">Email</label>{{ form.email }}</div>
+      <div class="row">
+        <div class="col-6 mb-3"><label class="form-label small">Department</label>{{ form.department }}</div>
+        <div class="col-6 mb-3"><label class="form-label small">Phone</label>{{ form.phone }}</div>
+      </div>
+      <div class="mb-3"><label class="form-label small">I am a...</label>{{ form.role }}</div>
+      <div class="mb-3"><label class="form-label small">Password</label>{{ form.password1 }}</div>
+      <div class="mb-3"><label class="form-label small">Confirm password</label>{{ form.password2 }}</div>
+      {% if form.errors %}<div class="alert alert-danger py-2 small">Please fix the errors below and try again.</div>{% endif %}
+      <button type="submit" class="btn btn-primary w-100">Create account</button>
+    </form>
+    <p class="text-center small mt-3 mb-0">Already have an account? <a href="{% url 'accounts:login' %}">Sign in</a></p>
+  </div>
+</div>
+{% endblock %}
