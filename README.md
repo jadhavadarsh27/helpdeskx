@@ -3,6 +3,7 @@
 [![Django](https://img.shields.io/badge/Django-6.x-092E20?logo=django&logoColor=white)](https://www.djangoproject.com/)
 [![Python](https://img.shields.io/badge/Python-3.12-3776AB?logo=python&logoColor=white)](https://www.python.org/)
 [![Docker](https://img.shields.io/badge/Docker-ready-2496ED?logo=docker&logoColor=white)](https://www.docker.com/)
+[![Docker Hub](https://img.shields.io/badge/Docker%20Hub-jadhavadarsh27%2Fhelpdeskx-2496ED?logo=docker&logoColor=white)](https://hub.docker.com/r/jadhavadarsh27/helpdeskx)
 [![Kubernetes](https://img.shields.io/badge/Kubernetes-manifests-326CE5?logo=kubernetes&logoColor=white)](https://kubernetes.io/)
 [![Terraform](https://img.shields.io/badge/Terraform-IaC-7B42BC?logo=terraform&logoColor=white)](https://www.terraform.io/)
 [![License](https://img.shields.io/badge/license-MIT-lightgrey)](#-license)
@@ -12,6 +13,8 @@ tickets, support agents triage and resolve them, and admins manage categories, S
 reporting — all from a single dashboard.
 
 > 💡 **New here?** Jump straight to [Quick Start](#-quick-start-pick-one) and pick the setup path that matches how you want to run this.
+
+> 🌐 **Live demo:** [helpdeskx-nu.vercel.app](https://helpdeskx-nu.vercel.app/) (Vercel deployment — see [Option D](#option-d--vercel-serverless) for the Postgres setup this requires)
 
 ---
 
@@ -144,9 +147,9 @@ docker compose exec web python manage.py createsuperuser
 <summary>Click to expand steps</summary>
 
 ```bash
-# 1. Build and push the image
-docker build -t <registry>/helpdeskx:latest .
-docker push <registry>/helpdeskx:latest
+# 1. Build and push the image to Docker Hub
+docker build -t jadhavadarsh27/helpdeskx:latest .
+docker push jadhavadarsh27/helpdeskx:latest
 
 # 2. Update k8s/deployment.yaml with your image reference, then apply
 kubectl apply -f k8s/
