@@ -14,8 +14,6 @@ reporting — all from a single dashboard.
 
 > 💡 **New here?** Jump straight to [Quick Start](#-quick-start-pick-one) and pick the setup path that matches how you want to run this.
 
-> 🌐 **Live demo:** [helpdeskx-nu.vercel.app](https://helpdeskx-nu.vercel.app/) (Vercel deployment — see [Option D](#option-d--vercel-serverless) for the Postgres setup this requires)
-
 ---
 
 ## 📑 Table of Contents
