@@ -4,73 +4,118 @@ metadata:
   name: helpdeskx-web
   labels:
     app: helpdeskx
+
 spec:
+  # Number of Pods we want running
   replicas: 2
+
+  # Deployment uses this label to find its Pods
   selector:
     matchLabels:
       app: helpdeskx
+
+  # Template for creating Pods
   template:
     metadata:
       labels:
         app: helpdeskx
+
     spec:
       containers:
         - name: web
+
+          # Local image loaded into the Kind cluster
           image: helpdeskx:latest
+
+          # Don't try to download the image from Docker Hub
+          # Use the image already loaded into the Kind node
+          imagePullPolicy: Never
+
           ports:
             - containerPort: 8000
+
+          # Load environment variables from ConfigMap and Secret
           envFrom:
             - configMapRef:
                 name: helpdeskx-config
             - secretRef:
                 name: helpdeskx-secrets
+
+          # Kubernetes checks whether the application is ready
           readinessProbe:
             httpGet:
               path: /accounts/login/
               port: 8000
             initialDelaySeconds: 5
             periodSeconds: 10
+
+          # Kubernetes checks whether the application is alive
           livenessProbe:
             httpGet:
               path: /accounts/login/
               port: 8000
             initialDelaySeconds: 15
             periodSeconds: 20
+
+          # Minimum resources requested
           resources:
             requests:
               cpu: "150m"
               memory: "256Mi"
+
+            # Maximum resources allowed
             limits:
               cpu: "500m"
               memory: "512Mi"
+
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: helpdeskx-service
+
 spec:
+  # Send traffic to Pods having this label
   selector:
     app: helpdeskx
+
   ports:
+    # Service listens on port 80
     - port: 80
+
+      # Forward traffic to container port 8000
       targetPort: 8000
+
+  # Internal Kubernetes Service
   type: ClusterIP
+
 ---
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
   name: helpdeskx-hpa
+
 spec:
+  # HPA controls this Deployment
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
     name: helpdeskx-web
+
+  # Minimum number of Pods
   minReplicas: 2
+
+  # Maximum number of Pods
   maxReplicas: 6
+
+  # Scale based on CPU usage
   metrics:
     - type: Resource
       resource:
         name: cpu
         target:
           type: Utilization
+
+          # If average CPU usage goes above 70%,
+          # HPA can increase the number of Pods
           averageUtilization: 70
