@@ -3,7 +3,7 @@ name: Deploy to AWS EC2
 on:
     push:
         branches:
-            -main
+            - main
 jobs:
     deploy:
         runs-on: ubuntu-latest
@@ -37,7 +37,8 @@ jobs:
             
             - name: Build Docker Image
               run: |
-                docker build -t {{ secrets.DOCKER_USERNAME }}/helpdeskx:{{ github.sha }} -t {{ secrets.DOCKER_USERNAME }}/helpdeskx:latest .
+                docker build -t {{ secrets.DOCKER_USERNAME }}/helpdeskx:{{ github.sha }} \
+                             -t {{ secrets.DOCKER_USERNAME }}/helpdeskx:latest .
 
             - name: Push Docker Image
               run: |
