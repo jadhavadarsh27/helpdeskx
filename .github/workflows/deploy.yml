@@ -55,5 +55,5 @@ jobs:
             docker pull ${{ secrets.DOCKER_USERNAME }}/helpdeskx:${{ github.sha }}
             docker stop helpdeskx || true
             docker rm helpdeskx || true
-            docker run -d --name helpdeskx --restart unless-stopped -p 8000:8000 ${{ secrets.DOCKER_USERNAME }}/helpdeskx:${{ github.sha }}
+            docker run -d --name helpdeskx --restart unless-stopped -p 8080:8000 ${{ secrets.DOCKER_USERNAME }}/helpdeskx:${{ github.sha }}
             docker image prune -f
