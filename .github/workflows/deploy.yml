@@ -41,7 +41,7 @@ jobs:
 
             - name: Push Docker Image
               run: |
-                docker push ${{ secrets.DOCKER_USERNAME }}/helpdeskx:{{ github.sha }}
+                docker push ${{ secrets.DOCKER_USERNAME }}/helpdeskx:${{ github.sha }}
                 docker push ${{ secrets.DOCKER_USERNAME }}/helpdeskx:latest
 
             - name: Deploy to EC2 instnace
