@@ -1,198 +1,359 @@
-# 🎫 HelpDeskX
+﻿<div align="center">
 
-[![Django](https://img.shields.io/badge/Django-6.x-092E20?logo=django&logoColor=white)](https://www.djangoproject.com/)
-[![Python](https://img.shields.io/badge/Python-3.12-3776AB?logo=python&logoColor=white)](https://www.python.org/)
-[![Docker](https://img.shields.io/badge/Docker-ready-2496ED?logo=docker&logoColor=white)](https://www.docker.com/)
-[![Docker Hub](https://img.shields.io/badge/Docker%20Hub-jadhavadarsh27%2Fhelpdeskx-2496ED?logo=docker&logoColor=white)](https://hub.docker.com/r/jadhavadarsh27/helpdeskx)
-[![Kubernetes](https://img.shields.io/badge/Kubernetes-manifests-326CE5?logo=kubernetes&logoColor=white)](https://kubernetes.io/)
-[![Terraform](https://img.shields.io/badge/Terraform-IaC-7B42BC?logo=terraform&logoColor=white)](https://www.terraform.io/)
-[![License](https://img.shields.io/badge/license-MIT-lightgrey)](#-license)
+<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=32&duration=3000&pause=1000&color=092E20&center=true&vCenter=true&width=600&lines=🎫+HelpDeskX;Cloud-Native+IT+Service+Desk;Django+%7C+Docker+%7C+K8s+%7C+Terraform" alt="HelpDeskX Typing SVG" />
 
-A cloud-native IT service desk and ticket management platform built with Django. Employees raise
-tickets, support agents triage and resolve them, and admins manage categories, SLA policies, and
-reporting — all from a single dashboard.
+<br/>
 
-> 💡 **New here?** Jump straight to [Quick Start](#-quick-start-pick-one) and pick the setup path that matches how you want to run this.
+[![Django](https://img.shields.io/badge/Django-6.x-092E20?style=for-the-badge&logo=django&logoColor=white)](https://www.djangoproject.com/)
+[![Python](https://img.shields.io/badge/Python-3.12-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
+[![Docker](https://img.shields.io/badge/Docker-ready-2496ED?style=for-the-badge&logo=docker&logoColor=white)](https://www.docker.com/)
+[![Kubernetes](https://img.shields.io/badge/Kubernetes-manifests-326CE5?style=for-the-badge&logo=kubernetes&logoColor=white)](https://kubernetes.io/)
+[![Terraform](https://img.shields.io/badge/Terraform-IaC-7B42BC?style=for-the-badge&logo=terraform&logoColor=white)](https://www.terraform.io/)
+[![License](https://img.shields.io/badge/License-MIT-22c55e?style=for-the-badge)](./LICENSE)
+
+<br/>
+
+[![Docker Hub](https://img.shields.io/badge/🐳%20Docker%20Hub-jadhavadarsh27%2Fhelpdeskx-2496ED?style=flat-square&logo=docker&logoColor=white)](https://hub.docker.com/r/jadhavadarsh27/helpdeskx)
+[![Stars](https://img.shields.io/github/stars/jadhavadarsh27/helpdeskx?style=flat-square&color=fbbf24&logo=github)](https://github.com/jadhavadarsh27/helpdeskx)
+[![Last Commit](https://img.shields.io/github/last-commit/jadhavadarsh27/helpdeskx?style=flat-square&color=a78bfa)](https://github.com/jadhavadarsh27/helpdeskx/commits)
+
+<br/>
+
+> **A cloud-native IT service desk built with Django.**
+> Employees raise tickets · Agents resolve them · Admins control everything — all from one dashboard.
+
+<br/>
+
+[🚀 Quick Start](#-quick-start-pick-one) &nbsp;·&nbsp; [✨ Features](#-features) &nbsp;·&nbsp; [🔑 Demo Logins](#-demo-logins) &nbsp;·&nbsp; [🗺 Roadmap](#-roadmap) &nbsp;·&nbsp; [🛠 Troubleshooting](#-troubleshooting)
+
+</div>
 
 ---
 
 ## 📑 Table of Contents
 
-- [Features](#-features)
-- [Tech Stack Map](#-tech-stack-map)
-- [Quick Start (pick one)](#-quick-start-pick-one)
-  - [Local (venv)](#option-a--local-venv)
-  - [Docker Compose](#option-b--docker-compose)
-  - [Kubernetes](#option-c--kubernetes)
-  - [Vercel (serverless)](#option-d--vercel-serverless)
-- [Demo Logins](#-demo-logins)
-- [Project Layout](#-project-layout)
-- [Troubleshooting](#-troubleshooting)
-- [Deployment Checklist](#-deployment-checklist)
-- [Roadmap](#-roadmap--suggested-next-steps)
+<details>
+<summary>Click to expand</summary>
+
+- [👥 Who Is This For?](#-who-is-this-for)
+- [✨ Features](#-features)
+- [🎫 Ticket Lifecycle](#-ticket-lifecycle)
+- [🧩 Tech Stack](#-tech-stack)
+- [🚀 Quick Start (pick one)](#-quick-start-pick-one)
+  - [Option A — Local (venv)](#option-a--local-venv)
+  - [Option B — Docker Compose](#option-b--docker-compose)
+  - [Option C — Kubernetes](#option-c--kubernetes)
+  - [Option D — Vercel (serverless)](#option-d--vercel-serverless)
+- [🔑 Demo Logins](#-demo-logins)
+- [📁 Project Layout](#-project-layout)
+- [🏗 Architecture Overview](#-architecture-overview)
+- [🛠 Troubleshooting](#-troubleshooting)
+- [✅ Deployment Checklist](#-deployment-checklist)
+- [🗺 Roadmap](#-roadmap)
+- [📄 License](#-license)
+
+</details>
+
+---
+
+## 👥 Who Is This For?
+
+| 🧑‍💼 Role | 🎯 What They Do |
+|:---|:---|
+| **Employee** | Raises tickets, tracks progress, rates resolutions |
+| **Support Agent** | Triages, comments, resolves tickets with SLA awareness |
+| **Admin** | Manages categories, SLA policies, users, and views analytics |
 
 ---
 
 ## ✨ Features
 
 <details>
-<summary><strong>Auth & roles</strong></summary>
+<summary>🔐 <strong>Auth &amp; Roles</strong> — Custom user model with three distinct roles</summary>
 
-Custom `User` model with `Employee`, `Support Agent`, and `Admin` roles. Self-service sign-up plus a Django admin panel for provisioning.
+<br/>
+
+Custom `User` model with `Employee`, `Support Agent`, and `Admin` roles.
+
+- ✅ Self-service sign-up
+- ✅ Django admin panel for provisioning
+- ✅ Role-based view and permission scoping
+
 </details>
 
 <details>
-<summary><strong>Ticket lifecycle</strong></summary>
+<summary>🎫 <strong>Ticket Lifecycle</strong> — End-to-end state machine for every request</summary>
 
-`New → Assigned → In Progress → Resolved → (Closed | Reopened)`. Employees confirm a resolution to close a ticket, or reject it to reopen it.
+<br/>
+
+```
+New ──► Assigned ──► In Progress ──► Resolved ──► Closed
+                                         │
+                                         └──► Reopened (if employee rejects resolution)
+```
+
+Employees confirm a resolution to **close**, or reject it to **reopen**.
+
 </details>
 
 <details>
-<summary><strong>SLA management</strong></summary>
+<summary>⏱ <strong>SLA Management</strong> — Never miss a deadline</summary>
 
-Per-priority response/resolution windows (`SLAPolicy`), an automatic due-date stamp on every new ticket, and an "overdue" flag surfaced in the UI.
+<br/>
+
+- Per-priority response/resolution windows via `SLAPolicy`
+- Automatic due-date stamp on every new ticket
+- **Overdue flag** surfaced in the UI for instant visibility
+
 </details>
 
 <details>
-<summary><strong>Comments & audit trail</strong></summary>
+<summary>💬 <strong>Comments &amp; Audit Trail</strong> — Full transparency, complete history</summary>
 
-Agents can leave internal notes hidden from the employee. A full ticket-history log records every status/assignment change.
+<br/>
+
+- Agents post **internal notes** hidden from the employee
+- Full ticket-history log records every status and assignment change
+- Nothing is ever deleted — everything is traceable
+
 </details>
 
 <details>
-<summary><strong>Attachments</strong></summary>
+<summary>📎 <strong>Attachments</strong> — Share files right on the ticket</summary>
 
-File uploads on ticket creation.
+<br/>
+
+File uploads supported on ticket creation. For production, plug in `django-storages` + S3/R2 to persist files across deploys.
+
 </details>
 
 <details>
-<summary><strong>Notifications</strong></summary>
+<summary>🔔 <strong>Notifications</strong> — Pluggable event-driven alerts</summary>
 
-In-app notifications on ticket creation, assignment, status changes, and comments. See `notifications/services.py` — swap in email/WebSocket delivery later without touching call sites.
+<br/>
+
+In-app notifications fire on:
+- Ticket creation
+- Assignment changes
+- Status updates
+- New comments
+
+See [`notifications/services.py`](./notifications/services.py) — swap in **email** or **WebSocket** delivery later without touching call sites.
+
 </details>
 
 <details>
-<summary><strong>Knowledge base</strong></summary>
+<summary>📚 <strong>Knowledge Base</strong> — Deflect repeat tickets with self-service</summary>
 
-Searchable articles ("Wi-Fi not working", "Password reset", etc.) to deflect repeat tickets.
+<br/>
+
+Searchable articles ("Wi-Fi not working", "Password reset") reduce ticket volume and empower employees to help themselves.
+
 </details>
 
 <details>
-<summary><strong>Dashboard</strong></summary>
+<summary>📊 <strong>Dashboard &amp; Analytics</strong> — Real-time operational insight</summary>
 
-Total / open / pending / resolved / closed / high-priority / overdue counts, average resolution time, tickets by category / status / department, and agent performance (admin view).
+<br/>
+
+| Metric | Available? |
+|:---|:---:|
+| Total / Open / Pending / Resolved / Closed counts | ✅ |
+| High-priority &amp; Overdue counts | ✅ |
+| Average resolution time | ✅ |
+| Tickets by category / status / department | ✅ |
+| Agent performance (admin-only view) | ✅ |
+
 </details>
 
 <details>
-<summary><strong>Feedback</strong></summary>
+<summary>⭐ <strong>Feedback</strong> — Close the loop with employees</summary>
 
-Employees rate resolved tickets 1–5 when accepting them.
+<br/>
+
+Employees rate resolved tickets **1–5 stars** when accepting them. Aggregate scores surface in agent performance reports.
+
 </details>
 
 ---
 
-## 🧩 Tech Stack Map
+## 🎫 Ticket Lifecycle
 
-| Technology | Where it's used |
-|---|---|
-| Django (DRF-ready structure) | `accounts`, `tickets`, `knowledgebase`, `dashboard`, `notifications` apps |
-| Docker | `Dockerfile` (app image), `docker-compose.yml` (app + Postgres + Redis) |
-| Kubernetes | `k8s/deployment.yaml` (Deployment, Service, HPA), `k8s/config-and-ingress.yaml` (ConfigMap, Secret, Ingress, NetworkPolicy) |
-| Terraform | `terraform/main.tf` — VPC with public/private subnets, EKS cluster + node group, managed Postgres |
-| Networking | Ingress + TLS, `NetworkPolicy` restricting pod egress to DB/Redis only, ClusterIP service in front of the Django pods |
+```mermaid
+stateDiagram-v2
+    direction LR
+    [*] --> New : Employee submits ticket
+    New --> Assigned : Admin/Agent assigns
+    Assigned --> InProgress : Agent starts work
+    InProgress --> Resolved : Agent marks resolved
+    Resolved --> Closed : Employee confirms ✅
+    Resolved --> Reopened : Employee rejects ❌
+    Reopened --> Assigned : Re-triaged
+```
+
+---
+
+## 🧩 Tech Stack
+
+<div align="center">
+
+| Layer | Technology | Purpose |
+|:---:|:---:|:---|
+| 🐍 **Backend** | Django 6.x | Core framework — apps, ORM, auth, admin |
+| 🐘 **Database** | PostgreSQL | Primary data store (SQLite for local dev) |
+| ⚡ **Cache/Queue** | Redis | Session caching, future Celery workers |
+| 🐳 **Container** | Docker + Compose | `Dockerfile` + multi-service `docker-compose.yml` |
+| ☸️ **Orchestration** | Kubernetes | Deployment, HPA, Ingress, NetworkPolicy |
+| 🏗 **IaC** | Terraform | VPC, EKS cluster, managed Postgres on AWS |
+| 🌐 **Networking** | Ingress + TLS | HTTPS termination, pod-egress NetworkPolicy |
+
+</div>
 
 ---
 
 ## 🚀 Quick Start (pick one)
 
+> 💡 **New here?** Pick the path that matches your setup. Docker Compose is the fastest way to get everything running.
+
 ### Option A — Local (venv)
 
 <details>
-<summary>Click to expand steps</summary>
+<summary>🐍 Click to expand steps</summary>
+
+<br/>
+
+**Prerequisites:** Python 3.12+
 
 ```bash
-python -m venv venv && source venv/bin/activate
+# 1. Create and activate a virtual environment
+python -m venv venv && source venv/bin/activate   # Windows: venv\Scripts\activate
+
+# 2. Install dependencies
 pip install -r requirements.txt
 
+# 3. Set up the database
 python manage.py migrate
-python manage.py seed_demo      # optional: demo users, tickets, KB articles
+
+# 4. (Optional) Seed demo users, tickets & KB articles
+python manage.py seed_demo
+
+# 5. Start the server
 python manage.py runserver
 ```
 
-Visit **http://localhost:8000/** — you'll land on the dashboard once logged in.
+🌐 Visit **[http://localhost:8000/](http://localhost:8000/)** — you'll land on the dashboard once logged in.
+
 </details>
+
+---
 
 ### Option B — Docker Compose
 
 <details>
-<summary>Click to expand steps</summary>
+<summary>🐳 Click to expand steps</summary>
+
+<br/>
+
+**Prerequisites:** Docker Desktop
 
 ```bash
+# Start the app + Postgres + Redis
 docker compose up --build
 ```
 
-Brings up the Django app, Postgres, and Redis together. First-time setup:
+First-time setup (run in a second terminal):
 
 ```bash
 docker compose exec web python manage.py migrate
 docker compose exec web python manage.py createsuperuser
+docker compose exec web python manage.py seed_demo   # optional
 ```
+
+🌐 Visit **[http://localhost:8000/](http://localhost:8000/)**
+
 </details>
+
+---
 
 ### Option C — Kubernetes
 
 <details>
-<summary>Click to expand steps</summary>
+<summary>☸️ Click to expand steps</summary>
+
+<br/>
+
+**Prerequisites:** `kubectl`, a running cluster (or use `minikube`/`kind` locally)
 
 ```bash
-# 1. Build and push the image to Docker Hub
+# Step 1 — Build and push your image to Docker Hub
 docker build -t jadhavadarsh27/helpdeskx:latest .
 docker push jadhavadarsh27/helpdeskx:latest
 
-# 2. Update k8s/deployment.yaml with your image reference, then apply
+# Step 2 — Apply all manifests (Deployment, Service, HPA, Ingress, etc.)
 kubectl apply -f k8s/
 
-# 3. Provision the underlying cluster/VPC/DB with Terraform
-cd terraform && terraform init && terraform apply
+# Step 3 — (Optional) Provision the cluster infrastructure with Terraform
+cd terraform
+terraform init
+terraform apply
 ```
+
+> ℹ️ Edit `k8s/deployment.yaml` to point to your image tag before applying.
+
 </details>
+
+---
 
 ### Option D — Vercel (serverless)
 
 <details>
-<summary>Click to expand steps ⚠️ requires external Postgres</summary>
+<summary>⚡ Click to expand steps — ⚠️ requires external Postgres</summary>
 
-Vercel's filesystem is read-only, so SQLite **will not work** — every write throws `OperationalError: unable to open database file`. Use a managed Postgres instead:
+<br/>
+
+> ⚠️ **Important:** Vercel's filesystem is read-only. SQLite will throw `OperationalError: unable to open database file` on every write. **You must use a managed Postgres.**
 
 ```bash
-# 1. Create a free Postgres DB (Neon or Supabase)
-# 2. Add to requirements.txt: dj-database-url, psycopg2-binary
-# 3. In settings.py:
-#    DATABASES = {'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))}
+# Step 1 — Create a free Postgres DB
+#   → Neon: https://neon.tech   or   Supabase: https://supabase.com
 
-# 4. Add DATABASE_URL as an env var in the Vercel dashboard, then:
+# Step 2 — Add to requirements.txt
+#   dj-database-url
+#   psycopg2-binary
+
+# Step 3 — Update settings.py
+#   import dj_database_url, os
+#   DATABASES = {'default': dj_database_url.config(default=os.environ['DATABASE_URL'])}
+
+# Step 4 — Set DATABASE_URL in Vercel dashboard, then pull & migrate
 vercel env pull .env.local
 python manage.py migrate
 python manage.py seed_demo   # optional
 
-# 5. Before going live:
-#    set DJANGO_DEBUG=False as a Vercel env var
+# Step 5 — Harden before going live
+#   Set DJANGO_DEBUG=False as a Vercel env var
+#   Set ALLOWED_HOSTS to your Vercel domain
 ```
+
 </details>
 
 ---
 
 ## 🔑 Demo Logins
 
-> Only available after running `python manage.py seed_demo`.
+> ⚠️ Only available after running `python manage.py seed_demo`.
 
-| Role | Username | Password |
-|---|---|---|
-| Admin | `admin` | `admin12345` |
-| Support Agent | `agent.rios` | `agent12345` |
-| Support Agent | `agent.chen` | `agent12345` |
-| Employee | `j.doe` | `employee12345` |
-| Employee | `s.patel` | `employee12345` |
+<div align="center">
+
+| Role | Username | Password | Access Level |
+|:---:|:---:|:---:|:---:|
+| 👑 Admin | `admin` | `admin12345` | Full system access |
+| 🛠 Support Agent | `agent.rios` | `agent12345` | Ticket management |
+| 🛠 Support Agent | `agent.chen` | `agent12345` | Ticket management |
+| 👤 Employee | `j.doe` | `employee12345` | Submit & track tickets |
+| 👤 Employee | `s.patel` | `employee12345` | Submit & track tickets |
+
+</div>
 
 ---
 
@@ -200,70 +361,183 @@ python manage.py seed_demo   # optional
 
 ```
 helpdeskx/
-├── accounts/          # custom User model, auth, profile
-├── tickets/            # Category, SLAPolicy, Ticket, comments, attachments, history, feedback
-├── knowledgebase/       # searchable articles
-├── dashboard/          # stats & reporting views
-├── notifications/      # in-app notification model + service
-├── templates/          # server-rendered HTML (Bootstrap + custom design system)
-├── static/css/style.css
-├── k8s/                 # Kubernetes manifests
-├── terraform/           # infrastructure as code
-├── Dockerfile
-└── docker-compose.yml
+│
+├── 🔐 accounts/           # Custom User model, auth, profile
+├── 🎫 tickets/            # Category, SLAPolicy, Ticket, comments, attachments, history, feedback
+├── 📚 knowledgebase/      # Searchable KB articles
+├── 📊 dashboard/          # Stats & reporting views
+├── 🔔 notifications/      # In-app notification model + pluggable service layer
+│
+├── 🖼  templates/          # Server-rendered HTML (Bootstrap + custom design system)
+├── 🎨 static/css/style.css
+│
+├── ☸️  k8s/                # Kubernetes manifests (Deployment, HPA, Ingress, NetworkPolicy)
+├── 🏗  terraform/          # Infrastructure-as-Code (VPC, EKS, managed Postgres)
+│
+├── 🐳 Dockerfile
+└── 🐳 docker-compose.yml
 ```
+
+---
+
+## 🏗 Architecture Overview
+
+```
+                     ┌─────────────────────────────────────┐
+                     │         Internet / Browser            │
+                     └─────────────────┬───────────────────┘
+                                       │ HTTPS
+                     ┌─────────────────▼───────────────────┐
+                     │       Ingress Controller (TLS)        │
+                     └─────────────────┬───────────────────┘
+                                       │
+                     ┌─────────────────▼───────────────────┐
+                     │    Django App (ClusterIP Service)     │
+                     │   Pods auto-scaled by HPA (k8s)       │
+                     └──────────┬─────────────────┬─────────┘
+                                │                 │
+            ┌───────────────────▼──┐   ┌──────────▼─────────┐
+            │   PostgreSQL DB       │   │   Redis Cache        │
+            │  (managed / RDS)      │   │  (sessions / queue)  │
+            └──────────────────────┘   └────────────────────-┘
+```
+
+<details>
+<summary>🔒 NetworkPolicy: what can talk to what?</summary>
+
+<br/>
+
+| Source | Destination | Allowed? |
+|:---:|:---:|:---:|
+| Ingress → Django pods | Port 8000 | ✅ |
+| Django pods → Postgres | Port 5432 | ✅ |
+| Django pods → Redis | Port 6379 | ✅ |
+| Django pods → Internet | Any | ❌ (egress locked) |
+| Pod → Pod (other namespaces) | Any | ❌ |
+
+</details>
 
 ---
 
 ## 🛠 Troubleshooting
 
 <details>
-<summary><code>OperationalError: unable to open database file</code></summary>
+<summary>🔴 <code>OperationalError: unable to open database file</code></summary>
 
-You're running on a read-only filesystem (Vercel, most serverless hosts) while still pointed at SQLite. Switch to an external Postgres — see [Option D above](#option-d--vercel-serverless).
+<br/>
+
+**Cause:** Running on a read-only filesystem (Vercel, most serverless hosts) while still pointing at SQLite.
+
+**Fix:** Switch to an external Postgres — see [Option D above](#option-d--vercel-serverless).
+
 </details>
 
 <details>
-<summary>Django's yellow debug page is showing in production</summary>
+<summary>🟡 Django's yellow debug page is showing in production</summary>
 
-`DEBUG=True` leaks source code and settings to anyone who triggers an error. Set `DJANGO_DEBUG=False` as an environment variable once the app is working, and configure `ALLOWED_HOSTS` for your real domain.
+<br/>
+
+**Cause:** `DEBUG=True` is set, which leaks source code and environment settings to anyone who triggers an error.
+
+**Fix:**
+```bash
+# In your hosting environment's env vars:
+DJANGO_DEBUG=False
+ALLOWED_HOSTS=yourdomain.com
+```
+
 </details>
 
 <details>
-<summary>Static files / CSS not loading after deploy</summary>
+<summary>🟡 Static files / CSS not loading after deploy</summary>
 
-Run `python manage.py collectstatic --noinput` as part of your build step, and confirm `STATIC_URL` / `STATICFILES_DIRS` are set in `settings.py`.
+<br/>
+
+**Cause:** Static files have not been collected, or `STATIC_URL` is misconfigured.
+
+**Fix:**
+```bash
+python manage.py collectstatic --noinput
+```
+
+Verify `STATIC_URL` and `STATICFILES_DIRS` are set correctly in `settings.py`.
+
 </details>
 
 <details>
-<summary>Ticket attachments disappear after redeploy</summary>
+<summary>🟡 Ticket attachments disappear after redeploy</summary>
 
-On ephemeral hosts (Vercel, most serverless platforms) local file storage doesn't persist. Add `django-storages` with an S3-compatible bucket (e.g. Cloudflare R2) instead of local `MEDIA_ROOT`.
+<br/>
+
+**Cause:** Ephemeral hosts (Vercel, most serverless platforms) do not persist local file storage between deploys.
+
+**Fix:** Add [`django-storages`](https://django-storages.readthedocs.io/) with an S3-compatible bucket:
+
+```python
+# settings.py
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+AWS_STORAGE_BUCKET_NAME = 'your-bucket-name'
+# Works with AWS S3, Cloudflare R2, Backblaze B2, etc.
+```
+
 </details>
 
 ---
 
 ## ✅ Deployment Checklist
 
-- [ ] Swapped SQLite for Postgres in `settings.py` (`DATABASE_URL` env var)
-- [ ] `python manage.py migrate` run against the production database
-- [ ] `DJANGO_DEBUG=False` set in production environment
-- [ ] `ALLOWED_HOSTS` set to your real domain
-- [ ] Media storage moved off local disk if hosting is ephemeral (S3 / R2)
-- [ ] Superuser created (`python manage.py createsuperuser`)
-- [ ] Demo/seed data removed or replaced before real users sign up
+> Run through this before pointing real users at your instance.
+
+- [ ] 🐘 Swapped SQLite → Postgres (`DATABASE_URL` env var in `settings.py`)
+- [ ] 🔄 `python manage.py migrate` run against the production database
+- [ ] 🔒 `DJANGO_DEBUG=False` set in production environment
+- [ ] 🌐 `ALLOWED_HOSTS` set to your real domain
+- [ ] 📦 Media storage moved off local disk if on ephemeral hosting (S3 / R2)
+- [ ] 👤 Superuser created (`python manage.py createsuperuser`)
+- [ ] 🧹 Demo / seed data removed or replaced before real users sign up
+- [ ] 🔑 `SECRET_KEY` rotated from the dev default and stored as an env var
+- [ ] 📋 `collectstatic` run as part of the build step
 
 ---
 
-## 🗺 Roadmap / Suggested Next Steps
+## 🗺 Roadmap
 
-- [ ] Wire `notifications/services.py` into an email backend or WebSocket layer for live push
-- [ ] Add Celery + Redis for background SLA-escalation checks (auto-escalate overdue tickets)
-- [ ] Add DRF serializers/viewsets over the existing models for a REST API layer
-- [ ] Add automated tests for the ticket lifecycle transitions
+| Priority | Feature | Status |
+|:---:|:---|:---:|
+| 🔥 High | Wire `notifications/services.py` into email or WebSocket for live push | 🔲 Planned |
+| 🔥 High | Add **Celery + Redis** for background SLA-escalation (auto-escalate overdue tickets) | 🔲 Planned |
+| 🟡 Med | Add **DRF serializers/viewsets** over existing models for a REST API layer | 🔲 Planned |
+| 🟡 Med | Add automated tests for ticket lifecycle state transitions | 🔲 Planned |
+| 🟢 Low | OAuth2 / SSO integration (Google Workspace, Okta) | 💡 Idea |
+| 🟢 Low | Slack / Teams bot for ticket creation from chat | 💡 Idea |
+
+---
+
+## 🤝 Contributing
+
+Contributions, issues, and feature requests are welcome!
+
+1. **Fork** the repo
+2. **Create** your feature branch: `git checkout -b feat/amazing-feature`
+3. **Commit** your changes: `git commit -m "feat: add amazing feature"`
+4. **Push** to the branch: `git push origin feat/amazing-feature`
+5. **Open** a Pull Request
 
 ---
 
 ## 📄 License
 
-MIT — adapt as needed for your own deployment.
+<div align="center">
+
+MIT License — free to use, modify, and deploy for your own projects.
+
+See [`LICENSE`](./LICENSE) for full terms.
+
+<br/>
+
+**Built with ❤️ using Django**
+
+[![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://forthebadge.com)
+[![forthebadge](https://forthebadge.com/images/badges/made-with-python.svg)](https://forthebadge.com)
+
+</div>
